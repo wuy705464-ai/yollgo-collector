@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Yollgo 商品被动采集助手
 // @namespace    local.yollgo.passive-collector
-// @version      1.0.0
+// @version      1.0.1
 // @description  仅监听网页商品响应；本地续存、去重、CSV/JSON 备份。无认证凭据采集。
 // @homepageURL  https://github.com/wuy705464-ai/yollgo-collector
 // @supportURL   https://github.com/wuy705464-ai/yollgo-collector/issues
@@ -434,6 +434,7 @@
   }
   function download(blob, filename) {
     const url = URL.createObjectURL(blob), a = document.createElement('a');
+    a.setAttribute('data-tap-disabled', 'true');
     a.href = url; a.download = filename; a.style.display = 'none'; document.body.append(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(url), 60_000);
   }
@@ -473,7 +474,11 @@
     }
   }
   function mount() {
-    const host = document.createElement('div'); host.id = 'yollgo-collector-panel'; document.body.append(host);
+    const host = document.createElement('div'); host.id = 'yollgo-collector-panel';
+    // Ionic 1 captures document clicks. Shadow DOM retargets the button to this host,
+    // so Ionic must allow native clicks on the host and its descendants.
+    host.setAttribute('data-tap-disabled', 'true');
+    document.body.append(host);
     root = host.attachShadow({ mode: 'open' });
     root.innerHTML = `<style>
       :host{all:initial;position:fixed;bottom:max(12px,env(safe-area-inset-bottom));right:12px;z-index:2147483646;font:14px/1.5 system-ui;color:#16263b;color-scheme:light}
