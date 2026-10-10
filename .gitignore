@@ -1,0 +1,7 @@
+work/
+node_modules/
+*.zip
+yollgo-6085-*.json
+yollgo-6085-*.csv
+.env
+.env.*

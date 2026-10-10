@@ -1,0 +1,25 @@
+可复现自动测试（开发者可选）
+
+test-collector.cjs 使用 Node.js + Playwright 在本机启动临时 localhost 页面，
+并用 Playwright 拦截模拟商品响应。不会向真实商品 API 发送请求，也不需要登录。
+模拟 API 内的 token/secret 字符串仅用于验证隐私过滤，不是真实凭据。
+测试结束关闭临时服务器和 headless Chrome，不操作你的常用浏览器会话。
+
+需要 Node.js、Google Chrome，以及本地可用的 playwright npm 包。
+解压后从仓库根目录运行。
+
+PowerShell 示例：
+  npm install --prefix work/qa playwright
+  $env:PLAYWRIGHT_MODULE = (Resolve-Path 'work/qa/node_modules/playwright').Path
+  node verification/test-collector.cjs
+
+若已安装 playwright 且在 Node 模块搜索路径内，可省略 PLAYWRIGHT_MODULE。
+未安装 Chrome 时，可指定另一 Chromium 浏览器可执行文件：
+  $env:CHROME_PATH = 'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe'
+
+测试生成的模拟备份、截图和报告默认写入 work/verification/。
+可用 YOLLGO_TEST_OUTPUT 环境变量指定其他测试输出目录。
+测试会验证真实文件下载、数据库续存、原 Fetch/XHR 返回、跨类目去重、
+暂停和在途响应、图片歧义撤销、授权下载字节、凭据过滤、备份恢复与多标签页。
+真实站点及 Tampermonkey 扩展注入仍须按“使用说明.txt”手动验收。
+

@@ -1,0 +1,16 @@
+测试环境：本机 Chrome headless，localhost 模拟页面；未登录访问真实商品 API。
+时间：2026-10-10T03:44:49.027Z
+
+PASS 纯函数：类目白名单、凭据过滤、歧义数组、共享 hash 不关联、CSV 公式防护
+PASS Fetch JSON 对网页仍可读，捕获单类目，跳过无 artId 商品
+PASS XHR responseType=json、跨类目按 artId 合并，更新字段并保留来源
+PASS XHR 文本响应、Request 对象正文不读取且网页仍可读
+PASS 不会自行重放 API；忽略其他店铺接口
+PASS 暂停跨刷新保存，暂停/恢复后不接收旧在途响应，IndexedDB 商品仍在
+PASS 真实图片资源：唯一 hash 完整路径片段与显式 DOM artId 匹配；共享 hash、未知图片、带凭据 URL 不关联
+PASS 多标签页只有一个写入者，其他标签页为只读
+PASS 图片授权勾选与确认、无 Cookie/Authorization/Referer 的顺序 GET、下载字节与原资源一致
+PASS 清空本脚本存储、JSON 备份恢复、保留类目与时间、导入图片证据重新验证
+PASS 375px 面板不越界、浏览器无未捕获错误
+
+真实网站与 Tampermonkey 扩展注入兼容性仍需按照使用说明现场验收。
